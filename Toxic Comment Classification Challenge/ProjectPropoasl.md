@@ -19,14 +19,19 @@ I would like to share my recent online experience.
 
 Every individual voice matters a lot for a community to get the diverse opinions and feedbacks. But with increasing number of online threats, hate conversations, sexual abusive comments many people stop expressing themselves. This is a great threat to free voice.
 
-Like youtube live chat, many platforms struggle to effectively facilitate conversations, leading many communities to limit or completely shut down user comments.
+Like youtube live chat, many platforms struggle to effectively facilitate conversations, leading many communities to limit or completely shut down user comments.  
 
-Solving this problem will have great social cause. This problem gives a great scope to explore NLP and Deep learning concepts though this journey.   
+For solving this problem we will be using the data of Wiki comments included in [*Toxic Comment Classification Challenge*](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) from Kaggle.
+
+Here is an interesting work by Jigsaw ad WikiMedia Foundation: [Ex Machina: Personal Attacks Seen at Scale](https://arxiv.org/pdf/1610.08914.pdf). As this paper also uses the Wiki comment dataset, it will be greatly helpful to know the bias in the data, challenges in data preprocessing. This paper will also be helping in benchmarking the results of our project.
+
+Solving this problem will have great social cause. This problem gives a great scope to explore NLP and Deep learning concepts though this journey.
 
 ### Problem Statement
 
 The goal of this project is to create a multi-headed model that is able to detect probability of different levels of toxicity like threats, obscenity, insults, and identity-based hate on any textual data(comments/posts). This model will helps online communities to create a better monitoring, in-turn creates a better place for productive and respectful conversations. For model creation we will be exploring a lot of Deep learning models and we will have great understanding of performance comparison for text classification.
 
+Traditionally identifying the toxic comments is worked as a binary classification problem where they just try to make 2 labels (toxic, non-toxic) more like a sentiment analysis model. Whereas in this project we will be trying to do a multi-labeled classification, that can be able to identify the nature of toxicity (threats, obscenity, insults, identity-based hate). So this is a classification problem that takes the input training dataset of wiki comments that were hand labeled to different toxic classes and we will train a model. Finally we will test the model that takes the test comments and will try to label toxicity in them. I will also try to train ensemble of binary classification models with each class labels as true or false and compare it with single model.
 
 ### Datasets and Inputs
 
@@ -35,6 +40,13 @@ As part of Kaggle's Toxic Comment Classification Challenge, Jigsaw and Google to
 The dataset includes:
 * train.csv - the training set, contains 159571 wiki comments with their binary labels
 * test.csv - the test set, you must predict the toxicity probabilities for 153164 comments. To deter hand labeling, the test set contains some comments which are not included in scoring.
+
+From the training dataset, we will be feature engineering and will be considering the features like number of words, parts of speech, number of punctuations, number of upper case words, etc
+
+Here is the list of toxic labels and their distribution out of 159571 training samples. From the below diagram the classes are not balanced, so we need to use sampling techniques to overcome this.
+![Class Label distribution](images/output_17_0.png)
+
+ We will be using 60/15/25 % slit on training data to get train/validation/testing(as they haven't given labeled testing data). We will also try to use the k-fold split to gain the more training data. In the split data sets I will be verifying the distribution of output labels, as that is very crucial for out testing score.  
 
 -----------
 1. [Kaggle, Jigsaw-toxic-comment-classification-challenge-data](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data)
@@ -74,6 +86,7 @@ This metric would  a great measure of probabilistic classification among differe
 The primary strategy of this project is to compare different model implementations ranging from Machine Learning Models like
 * Logistic Regression
 * SVM
+* LightGBM
 * XGBoost
 
 and deep learning models like
